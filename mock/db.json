@@ -1,9 +1,57 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "email": "thelukgaming333@gmail.com",
-            "password": 12345
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "email": "thelukgaming333@gmail.com",
+      "password": 12345
+    },
+    {
+      "id": 2
+    },
+    {
+      "email": "teste@email.com",
+      "password": "12345678",
+      "id": 3
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 4
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 5
+    },
+    {
+      "email": "thelukgaming333@gmail.com",
+      "password": "12345678",
+      "id": 6
+    },
+    {
+      "email": "teste@email.com",
+      "password": "12345678",
+      "id": 7
+    },
+    {
+      "email": "teste@email.com",
+      "password": "12345678",
+      "id": 8
+    },
+    {
+      "email": "",
+      "password": "",
+      "id": 9
+    },
+    {
+      "email": "teste@email.com",
+      "password": "12345678",
+      "id": 10
+    },
+    {
+      "email": "teste@email.com",
+      "password": "12345678",
+      "id": 11
+    }
+  ]
 }

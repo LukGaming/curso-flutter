@@ -3,6 +3,26 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+Future<User> createUser(String email, String password) async {
+  final response = await http.post(
+    Uri.parse('http://192.168.1.103:3000/users'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{'email': email, 'password': password}),
+  );
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 CREATED response,
+    // then parse the JSON.
+    return User.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create User.');
+  }
+}
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -19,26 +39,6 @@ class MyApp extends StatelessWidget {
         body: const MyStatefulWidget(),
       ),
     );
-  }
-}
-
-Future<User> createUser(String email, String password) async {
-  final response = await http.post(
-    Uri.parse('http://localhost:3000/users'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{'email': email, 'password': password}),
-  );
-
-  if (response.statusCode == 201) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
-    return User.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to create User.');
   }
 }
 
@@ -100,17 +100,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               child: ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    _futureAlbum = createUser(emailController.text, passwordController.text);
+                    _futureAlbum = createUser(
+                        emailController.text, passwordController.text);
                   });
                   showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        // Retrieve the text the that user has entered by using the
-                        // TextEditingController.
-                        content: Text(
-                            " EmaiL: \n ${emailController.text} \n Senha:  \n ${passwordController.text}"),
-                      );
+                          // Retrieve the text the that user has entered by using the
+                          // TextEditingController.
+                          content: Text("$_futureAlbum"));
                     },
                   );
 
@@ -132,10 +131,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 }
 
 class User {
+  final int id;
   final String email;
   final String password;
-  const User({required this.email, required this.password});
+  const User({required this.id, required this.email, required this.password});
   factory User.fromJson(Map<String, dynamic> json) {
-    return User(email: json['email'], password: json['password']);
+    return User(
+        id: json['id'], email: json['email'], password: json['password']);
   }
 }
