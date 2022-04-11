@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: const Text(_title)),
         // body: const UserCrud(),
-        body: UserList(),
+        body: const UserList(),
       ),
     );
   }

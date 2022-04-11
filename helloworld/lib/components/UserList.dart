@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:helloworld/components/UserData.dart';
 import 'package:helloworld/models/user.dart';
 import 'package:helloworld/services/userService.dart';
 
@@ -18,33 +19,41 @@ class _UserListState extends State<UserList> {
     return Container(
       child: Column(
         children: [
+          Row(children: [ListView.builder(
+            itemCount: 6,
+            itemBuilder: (context, i) {
+              return UserData(username: "Teste", email: "Teste@email.com");
+            },
+          ),],),
+          
+          Center(child: Text("Listagem de usuários ")),
+          UserData(username: "Teste", email: "Teste@email.com"),
+          UserData(username: "Teste2", email: "Teste@email.com"),
           Row(
             children: [
-              Text("Listagem de usuários"),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _futureUser = getUsers();
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                              content: Text("Usuários Recuperados"));
-                        },
-                      );
-                    });
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
-                  },
-                  child: const Text('Listar Usuários'),
-                  
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _futureUser = getUsers();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(content: Text("Usuários teste"));
+                          },
+                        );
+                      });
+                      // Validate will return true if the form is valid, or false if
+                      // the form is invalid.
+                    },
+                    child: const Text('Listar Usuários'),
+                  ),
                 ),
               ),
-              Container(child: Users(),)
             ],
-          )
+          ),
         ],
       ),
     );
